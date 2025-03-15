@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import argparse
 import random
 import string
@@ -10,7 +11,7 @@ def generate_password(length=12, use_upper=True, use_digits=True, use_symbols=Tr
     
     all_chars = lower + upper + digits + symbols
     if not all_chars:
-        raise ValueError("No character set selected for password generation.")
+        raise ValueError("[CCrack] No character set selected for password generation.")
     
     password = ''.join(random.choices(all_chars, k=length))
     
@@ -19,15 +20,15 @@ def generate_password(length=12, use_upper=True, use_digits=True, use_symbols=Tr
         remaining_length = length - len(keyword)
         if remaining_length > 0:
             filler = ''.join(random.choices(all_chars, k=remaining_length))
-            insert_pos = random.randint(0, remaining_length)  # Insert keyword at a random position
+            insert_pos = random.randint(0, remaining_length)  
             password = filler[:insert_pos] + keyword + filler[insert_pos:]
         else:
             password = keyword[:length]
     
-    return password.replace(" ", "")  # Ensure no spaces
+    return password.replace(" ", "")
 
 def main():
-    parser = argparse.ArgumentParser(description="C Crack - A.K.A. Cypher Crack, created by CYPHER")
+    parser = argparse.ArgumentParser(description="C Crack - A.K.A. Cypher Crack, created by Theo Kershaw")
     parser.add_argument('-n', '--num', type=int, default=10, help='Number of passwords to generate')
     parser.add_argument('-l', '--length', type=int, default=12, help='Length of each password')
     parser.add_argument('-o', '--output', type=str, help='Output file to save passwords')
@@ -44,7 +45,7 @@ def main():
     if args.output:
         with open(args.output, 'w') as f:
             f.write('\n'.join(passwords) + '\n')
-        print(f"Passwords saved to {args.output}")
+        print(f"[CCrack] Passwords saved to {args.output}")
     else:
         print('\n'.join(passwords))
 
